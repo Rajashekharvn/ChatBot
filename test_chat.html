@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Toggle Test</title>
+  <style>
+    #chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 24px;
+      z-index: 1000;
+    }
+    
+    #chatbox {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    #chatbox.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    #chat-header {
+      padding: 16px;
+      background: #3b82f6;
+      color: white;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .close-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    
+    #chat-content {
+      flex: 1;
+      padding: 16px;
+      background: #f9fafb;
+    }
+  </style>
+</head>
+<body>
+  <h1>Click the blue button to test chat toggle</h1>
+  
+  <!-- Chat Toggle Button -->
+  <button id="chat-toggle">💬</button>
+  
+  <!-- Chatbox -->
+  <div id="chatbox">
+    <div id="chat-header">
+      <span>Test Chat</span>
+      <button class="close-btn" onclick="toggleChat()">×</button>
+    </div>
+    <div id="chat-content">
+      <p>Chat is working! 🎉</p>
+    </div>
+  </div>
+
+  <script>
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatbox = document.getElementById('chatbox');
+    
+    function toggleChat() {
+      console.log('Toggle function called!');
+      console.log('Current display:', chatbox.style.display);
+      console.log('Has show class:', chatbox.classList.contains('show'));
+      
+      const isVisible = chatbox.style.display === 'flex' || chatbox.classList.contains('show');
+      
+      if (isVisible) {
+        console.log('Closing chat...');
+        chatbox.classList.remove('show');
+        setTimeout(() => {
+          chatbox.style.display = 'none';
+        }, 300);
+      } else {
+        console.log('Opening chat...');
+        chatbox.style.display = 'flex';
+        setTimeout(() => {
+          chatbox.classList.add('show');
+        }, 10);
+      }
+    }
+    
+    // Add event listener
+    chatToggle.addEventListener('click', function(e) {
+      console.log('Button clicked!', e);
+      toggleChat();
+    });
+    
+    console.log('Script loaded!');
+    console.log('Toggle button:', chatToggle);
+    console.log('Chatbox:', chatbox);
+  </script>
+</body>
+</html>
